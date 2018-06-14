@@ -18,14 +18,20 @@ MongoClient.connect(url, function(err, client) {
 
   const db = client.db(dbName);
 
-  db.collection('Users').insertOne({
-    user:'Jen',
-    age:26
-  },(err,result) => {
-    if(err) return console.log('Unable to insert todo', err);
+  //deletOne
+//   db.collection('Todos').deleteOne({completed:false}).then(res => {
+//       console.log(res);
+//   })
 
-    console.log(JSON.stringify(result.ops,undefined,2));
-  })
+    //deleteMany
+    // db.collection('Todos').deleteMany().then(res => {
+    //     console.log(res);
+    // })
+
+    //findOneAndDelete
+    db.collection('Todos').findOneAndDelete({completed:true}).then(res => {
+        console.log(res);
+    })
 
   client.close();
 });

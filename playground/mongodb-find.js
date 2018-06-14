@@ -18,13 +18,13 @@ MongoClient.connect(url, function(err, client) {
 
   const db = client.db(dbName);
 
-  db.collection('Users').insertOne({
-    user:'Jen',
-    age:26
-  },(err,result) => {
-    if(err) return console.log('Unable to insert todo', err);
-
-    console.log(JSON.stringify(result.ops,undefined,2));
+  db.collection('Todos').find({
+    _id:new ObjectID('5b209c884390795e5d81083f')
+  }).toArray().then(data => {
+    console.log("Todos");
+    console.log(JSON.stringify(data,undefined,2))
+  },err => {
+    console.log('Error in fetching todos');
   })
 
   client.close();

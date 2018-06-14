@@ -18,14 +18,18 @@ MongoClient.connect(url, function(err, client) {
 
   const db = client.db(dbName);
 
-  db.collection('Users').insertOne({
-    user:'Jen',
-    age:26
-  },(err,result) => {
-    if(err) return console.log('Unable to insert todo', err);
-
-    console.log(JSON.stringify(result.ops,undefined,2));
-  })
+  db.collection('todos').findOneAndUpdate({
+      _id:new ObjectID('5b21ee96598b2a085021639f')
+  },
+  {
+    $set: { text: "cm", completed: true },
+    $currentDate: { lastModified: true },
+    $inc: { completedAt:10 } 
+  }).then(doc => {
+    console.log(JSON.stringify(doc,undefined,2));
+},err => {
+    console.log('Error in saving doc')
+})
 
   client.close();
 });
