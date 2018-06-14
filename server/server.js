@@ -23,14 +23,19 @@ app.post('/todos', (req, res) => {
     })
 })
 
+app.get('/todos', (req,res) => {
+    Todo.find().then(todos => {
+        res.send({todos});
+    },err => {
+        res.status(400).send(err);
+    })
+})
+
 app.listen('3000', () => {
     console.log('Application listening on port 3000');
 })
 
-// newTodo.save().then(doc => {
-//     console.log(JSON.stringify(doc,undefined,2));
-// },err => {
-//     console.log('Error in saving doc')
-// })
-
+module.exports={
+    app
+}
 
